@@ -4,20 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
-    
-    <title>Nigga ordering Form </title>
+    <title>Item Ordering Form</title>
 </head>
 <body>
     
     <div class="container">
-     <h1>ordring form</h1>
-        <form action="index.php" method="post">
-            <label>How many niggas do you want?</label>
-            <input type="number" name="nigga" required>
+        <h1>Ordering Form</h1>
+        <form id="orderForm">
+            <label>How many items do you want?</label>
+            <input type="number" id="itemInput" name="item" required min="1">
             <br>
             <input type="submit" value="Buy">
         </form>
-        
     </div>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            // Get the value of the input field
+            var itemCount = document.getElementById('itemInput').value;
+
+            // Validate that the input is a positive number
+            if (itemCount <= 0) {
+                alert("Please enter a valid number of items.");
+                event.preventDefault(); // Prevent form submission if invalid
+            } else {
+                // Confirm the order
+                var confirmMessage = "You have ordered " + itemCount + " item(s).";
+                alert(confirmMessage);
+            }
+        });
+    </script>
 </body>
 </html>
