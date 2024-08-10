@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Boxes</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        .box {
+            position: relative;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box:hover {
+            transform: scale(1.1);
+        }
+
+        .box.expanded {
+            transform: scale(1.3);
+        }
+
+        .box.shrink {
+            transform: scale(0.3);
+        }
+
+        .box.open {
+            transform: scale(1);
+            grid-column: span 2;
+            grid-row: span 2;
+            height: auto;
+        }
+
+        .content {
+            display: none;
+            padding-top: 20px;
+        }
+
+        .box.open .content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" onclick="toggleBox(this)">
+            Box 1
+            <div class="content">
+                <?php echo "This is the content for Box 1"; ?>
+            </div>
+        </div>
+        <div class="box" onclick="toggleBox(this)">
+            Box 2
+            <div class="content">
+                <?php echo "This is the content for Box 2"; ?>
+            </div>
+        </div>
+        <div class="box" onclick="toggleBox(this)">
+            Box 3
+            <div class="content">
+                <?php echo "This is the content for Box 3"; ?>
+            </div>
+        </div>
+        <div class="box" onclick="toggleBox(this)">
+            Box 4
+            <div class="content">
+                <?php echo "This is the content for Box 4"; ?>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBox(selectedBox) {
+            const boxes = document.querySelectorAll('.box');
+            
+            boxes.forEach(box => {
+                if (box !== selectedBox) {
+                    box.classList.remove('expanded', 'open');
+                    box.classList.add('shrink');
+                } else {
+                    box.classList.remove('shrink');
+                    if (box.classList.contains('open')) {
+                        box.classList.remove('open');
+                        box.classList.add('expanded');
+                    } else if (box.classList.contains('expanded')) {
+                        box.classList.remove('expanded');
+                        box.classList.add('open');
+                    } else {
+                        box.classList.add('expanded');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
